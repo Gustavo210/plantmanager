@@ -1,5 +1,15 @@
 import React from "react"
-import { Keyboard, View, Text, SafeAreaView, TextInput, StyleSheet, KeyboardAvoidingView, Platform } from "react-native"
+import {
+    Keyboard,
+    View,
+    Text,
+    SafeAreaView,
+    TextInput,
+    StyleSheet,
+    TouchableWithoutFeedback,
+    KeyboardAvoidingView,
+    Platform
+} from "react-native"
 
 
 import colors from "../styles/colors"
@@ -37,26 +47,30 @@ const UserIdentification: React.FC = () => {
     }
     return (
         <SafeAreaView style={styles.container} >
-            <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            <KeyboardAvoidingView
+                style={styles.container}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 
-                <View style={styles.content}>
-                    <View style={styles.form}>
-                        <Text style={styles.emoji}>{isFilled ? "😁" : "😄"}</Text>
-                        <Text style={styles.title}>
-                            Como podemos {"\n"} chamar você?
-                        </Text>
-                        <TextInput
-                            style={[styles.input, (isFocused || isFilled) && { borderColor: colors.green }]}
-                            onChangeText={handleInputChange}
-                            value={name}
-                            placeholder="Digite um nome" />
-                        <View style={styles.footer}>
-                            <Button text="Confirmar" onPress={handleNavigationToConfirmation} />
+                    <View style={styles.content}>
+                        <View style={styles.form}>
+                            <Text style={styles.emoji}>{isFilled ? "😁" : "😄"}</Text>
+                            <Text style={styles.title}>
+                                Como podemos {"\n"} chamar você?
+                            </Text>
+                            <TextInput
+                                style={[styles.input, (isFocused || isFilled) && { borderColor: colors.green }]}
+                                onChangeText={handleInputChange}
+                                value={name}
+                                placeholder="Digite um nome" />
+                            <View style={styles.footer}>
+                                <Button text="Confirmar" onPress={handleNavigationToConfirmation} />
+                            </View>
+
                         </View>
 
                     </View>
-
-                </View>
+                </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
         </SafeAreaView>
     )
