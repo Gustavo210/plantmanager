@@ -40,7 +40,7 @@ const Confirmation: React.FC = () => {
                     Agora vamos começar a cuidar das suas plantinhas com muito cuidado.
                 </Text>
                 <View style={styles.footer}>
-                    <Button text="Confirmar" />
+                    <Button text="Começar" />
                 </View>
             </View>
         </SafeAreaView>

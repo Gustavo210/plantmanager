@@ -7,11 +7,14 @@ import fonts from "../styles/fonts"
 import Button from '../components/Button'
 import { useState } from "react"
 import { useEffect } from "react"
+import { useNavigation } from "@react-navigation/native"
 
 const UserIdentification: React.FC = () => {
     const [isFocused, setIsFocused] = useState(false)
     const [isFilled, setIsFilled] = useState(false)
     const [name, setName] = useState("")
+
+    const navigation = useNavigation()
 
     useEffect(() => {
 
@@ -26,6 +29,11 @@ const UserIdentification: React.FC = () => {
     const handleInputChange = (value: string) => {
         setIsFilled(value.length > 0)
         setName(value)
+    }
+    const handleNavigationToConfirmation = () => {
+        if (isFilled) {
+            navigation.navigate("Confirmation")
+        }
     }
     return (
         <SafeAreaView style={styles.container} >
@@ -43,8 +51,7 @@ const UserIdentification: React.FC = () => {
                             value={name}
                             placeholder="Digite um nome" />
                         <View style={styles.footer}>
-                            <Button text="Confirmar" />
-
+                            <Button text="Confirmar" onPress={handleNavigationToConfirmation} />
                         </View>
 
                     </View>

@@ -5,8 +5,15 @@ import Feather from '@expo/vector-icons/Feather';
 import watering from '../assets/watering.png'
 import colors from '../styles/colors'
 import fonts from '../styles/fonts';
+import { useNavigation } from '@react-navigation/native';
 
 const Welcome: React.FC = () => {
+
+    const navigation = useNavigation()
+
+    const handleNavigateToUserIdentification = () => {
+        navigation.navigate("UserIdentification")
+    }
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.title}>
@@ -17,7 +24,7 @@ const Welcome: React.FC = () => {
                 Não esqueça mais de regar suas plantas.
                 Nós cuidamos de lembrar você sempre que precisar.
             </Text>
-            <TouchableOpacity style={styles.button} activeOpacity={0.7}>
+            <TouchableOpacity onPress={handleNavigateToUserIdentification} style={styles.button} activeOpacity={0.7}>
                 <Feather name="chevron-right" size={20} color="#fff" />
             </TouchableOpacity>
         </SafeAreaView>

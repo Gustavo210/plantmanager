@@ -9,7 +9,7 @@ interface PropsButton extends TouchableOpacityProps {
 
 const Button: React.FC<PropsButton> = ({ text, ...rest }) => {
     return (
-        <TouchableOpacity {...rest} style={styles.container}>
+        <TouchableOpacity style={styles.container} {...rest}>
             <Text style={styles.text}>{text}</Text>
         </TouchableOpacity>
     )
