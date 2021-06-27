@@ -9,13 +9,19 @@ import Routes from './src/routes';
 export default function App() {
   const [fontsLoaded] = useFonts({ Jost_400Regular, Jost_600SemiBold })
   if (!fontsLoaded) {
-    return <AppLoading />
+    return (
+      <>
+        <AppLoading />
+        <StatusBar style="dark" />
+      </>
+    )
   } else {
 
-    return (<>
-      <Routes />
-      <StatusBar style="dark" />
-    </>
+    return (
+      <>
+        <Routes />
+        <StatusBar style="dark" />
+      </>
     );
   }
 }

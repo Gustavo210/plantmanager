@@ -7,25 +7,13 @@ import fonts from "../styles/fonts"
 import Button from '../components/Button'
 import { useState } from "react"
 import { useEffect } from "react"
+import { useNavigation } from "@react-navigation/native"
 
-const Confirmation: React.FC = () => {
-    const [isFocused, setIsFocused] = useState(false)
-    const [isFilled, setIsFilled] = useState(false)
-    const [name, setName] = useState("")
+export default function Confirmation() {
+    const navigation = useNavigation()
 
-    useEffect(() => {
-
-        Keyboard.addListener("keyboardDidHide", () => {
-            setIsFocused(false)
-        })
-        Keyboard.addListener("keyboardDidShow", () => {
-            setIsFocused(true)
-        })
-    }, [])
-
-    const handleInputChange = (value: string) => {
-        setIsFilled(value.length > 0)
-        setName(value)
+    const handleGoToPlantSelect = () => {
+        navigation.navigate("PlantSelect")
     }
     return (
         <SafeAreaView style={styles.container} >
@@ -40,7 +28,7 @@ const Confirmation: React.FC = () => {
                     Agora vamos começar a cuidar das suas plantinhas com muito cuidado.
                 </Text>
                 <View style={styles.footer}>
-                    <Button text="Começar" />
+                    <Button text="Começar" onPress={handleGoToPlantSelect} />
                 </View>
             </View>
         </SafeAreaView>
@@ -48,7 +36,7 @@ const Confirmation: React.FC = () => {
 }
 
 
-export default Confirmation
+
 
 
 const styles = StyleSheet.create({

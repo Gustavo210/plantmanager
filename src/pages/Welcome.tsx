@@ -7,7 +7,7 @@ import colors from '../styles/colors'
 import fonts from '../styles/fonts';
 import { useNavigation } from '@react-navigation/native';
 
-const Welcome: React.FC = () => {
+export default function Welcome() {
 
     const navigation = useNavigation()
 
@@ -31,7 +31,6 @@ const Welcome: React.FC = () => {
     )
 }
 
-export default Welcome
 
 const styles = StyleSheet.create({
     container: {
