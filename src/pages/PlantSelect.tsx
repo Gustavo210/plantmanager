@@ -35,7 +35,6 @@ export default function PlantSelect() {
 
     const [page, setPage] = useState(1)
     const [loadingMore, setLoadingMore] = useState(false)
-    const [loadedAll, setLoadedAll] = useState(false)
 
     useEffect(() => {
         setLoading(true)
@@ -99,6 +98,7 @@ export default function PlantSelect() {
             <FlatList
                 data={listEnvironments}
                 horizontal
+                keyExtractor={item => String(item.key)}
                 contentContainerStyle={styles.environmentList}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item }) => <EnvironmentButton {...item} onPress={() => handleEnvironmentKey(item.key)} isActive={environmentSelected === item.key} />}
@@ -107,6 +107,7 @@ export default function PlantSelect() {
                 data={filteredPlants}
                 showsVerticalScrollIndicator={true}
                 numColumns={2}
+                keyExtractor={item => String(item.id)}
                 onEndReachedThreshold={0.2}
                 onEndReached={({ distanceFromEnd }) => handleFetchMore(distanceFromEnd)}
                 contentContainerStyle={styles.plants}
