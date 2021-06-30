@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Image, PixelRatio } from "react-native";
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
 
 const Header: React.FC = props => {
 
+    const [userName, setUserName] = useState("")
+    useEffect(() => {
+        ; (async () => {
+            const name = await AsyncStorage.getItem("@plantmanager:user")
+            setUserName(name || "")
+        })()
+    }, [])
+
     return (
         <View style={styles.container}>
             <View>
                 <Text style={styles.greeting}>Olá,</Text>
-                <Text style={styles.userName}>Gustavo</Text>
+                <Text style={styles.userName}>{userName}</Text>
             </View>
 
             <Image source={{ uri: "https://avatars.githubusercontent.com/u/44369818?v=4" }} style={styles.image} />

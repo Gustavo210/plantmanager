@@ -8,16 +8,16 @@ import {
     StyleSheet,
     TouchableWithoutFeedback,
     KeyboardAvoidingView,
-    Platform
+    Platform,
+    Alert
 } from "react-native"
-
+import { useState, useEffect } from "react"
+import { useNavigation } from "@react-navigation/native"
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import colors from "../styles/colors"
 import fonts from "../styles/fonts"
 import Button from '../components/Button'
-import { useState } from "react"
-import { useEffect } from "react"
-import { useNavigation } from "@react-navigation/native"
 
 export default function UserIdentification() {
     const [isFocused, setIsFocused] = useState(false)
@@ -40,10 +40,14 @@ export default function UserIdentification() {
         setIsFilled(value.length > 0)
         setName(value)
     }
-    const handleNavigationToConfirmation = () => {
-        if (isFilled) {
-            navigation.navigate("Confirmation")
+    const handleNavigationToConfirmation = async () => {
+        if (!isFilled) {
+            return Alert.alert("😥", "Me diz como chamar você?")
         }
+        await AsyncStorage.setItem("@plantmanager:user", name).then(() => {
+
+            navigation.navigate("Confirmation")
+        })
     }
     return (
         <SafeAreaView style={styles.container} >

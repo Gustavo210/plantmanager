@@ -96,17 +96,13 @@ export default function PlantSelect() {
                 <Text style={styles.title}>Em qual ambiente</Text>
                 <Text style={styles.subtitle}>você quer colocar sua planta?</Text>
             </View>
-
-            <View>
-
-                <FlatList
-                    data={listEnvironments}
-                    horizontal
-                    contentContainerStyle={styles.environmentList}
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({ item }) => <EnvironmentButton {...item} onPress={() => handleEnvironmentKey(item.key)} isActive={environmentSelected === item.key} />}
-                />
-            </View>
+            <FlatList
+                data={listEnvironments}
+                horizontal
+                contentContainerStyle={styles.environmentList}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({ item }) => <EnvironmentButton {...item} onPress={() => handleEnvironmentKey(item.key)} isActive={environmentSelected === item.key} />}
+            />
             <FlatList
                 data={filteredPlants}
                 showsVerticalScrollIndicator={true}
