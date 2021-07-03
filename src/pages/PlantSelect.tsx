@@ -26,10 +26,9 @@ export default function PlantSelect() {
     const navigation = useNavigation()
 
     const [page, setPage] = useState(1)
-    const [loadingMore, setLoadingMore] = useState(false)
+    const [loadingMore, setLoadingMore] = useState(true)
 
     useEffect(() => {
-        setLoading(true)
         fetchEnvironment()
         fetchPlants()
 
