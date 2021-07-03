@@ -10,28 +10,20 @@ import fonts from '../styles/fonts'
 import { useEffect } from 'react'
 import api from '../services/api'
 import { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { PlantProps } from '../libs/storage'
 
 
 interface PropsEnvironment { key: string, title: string }
-interface PropsPlants {
-    id: string
-    name: string
-    about: string
-    water_tips: string
-    photo: string
-    environments: string[],
-    frequency: {
-        times: string
-        repeat_every: string
-    }
-}
+
 export default function PlantSelect() {
 
     const [listEnvironments, setListEnvironments] = useState<PropsEnvironment[]>([])
-    const [listPlants, setListPlants] = useState<PropsPlants[]>([])
-    const [filteredPlants, setFilteredPlants] = useState<PropsPlants[]>([])
+    const [listPlants, setListPlants] = useState<PlantProps[]>([])
+    const [filteredPlants, setFilteredPlants] = useState<PlantProps[]>([])
     const [environmentSelected, setEnvironmentSelected] = useState("all")
     const [loading, setLoading] = useState(false)
+    const navigation = useNavigation()
 
     const [page, setPage] = useState(1)
     const [loadingMore, setLoadingMore] = useState(false)
@@ -47,7 +39,7 @@ export default function PlantSelect() {
         setListEnvironments([{ key: "all", title: "Todos" }, ...data])
     }
     async function fetchPlants() {
-        const { data } = await api.get<PropsPlants[]>(`plants?_sort=name&_order=asc&_page=${ page }&_limit=8`)
+        const { data } = await api.get<PlantProps[]>(`plants?_sort=name&_order=asc&_page=${ page }&_limit=8`)
 
         if (!data) {
             return setLoading(false)
@@ -84,6 +76,10 @@ export default function PlantSelect() {
         setFilteredPlants(filtered)
     }
 
+    const handlePlantSelect = (item: PlantProps) => {
+        navigation.navigate("PlantSave", item)
+    }
+
     if (loading) {
         return <Load />
     }
@@ -111,7 +107,7 @@ export default function PlantSelect() {
                 onEndReachedThreshold={0.2}
                 onEndReached={({ distanceFromEnd }) => handleFetchMore(distanceFromEnd)}
                 contentContainerStyle={styles.plants}
-                renderItem={({ item }) => <PlantCardPrimary data={item} />}
+                renderItem={({ item }) => <PlantCardPrimary data={item} onPress={() => handlePlantSelect(item)} />}
                 ListFooterComponent={loadingMore ? <ActivityIndicator color={colors.green} /> : <></>}
             />
         </SafeAreaView>

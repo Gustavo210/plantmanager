@@ -1,34 +1,45 @@
 import React from "react"
-import { Keyboard, View, Text, SafeAreaView, TextInput, StyleSheet, KeyboardAvoidingView, Platform } from "react-native"
+import { View, Text, SafeAreaView, StyleSheet } from "react-native"
 
 
 import colors from "../styles/colors"
 import fonts from "../styles/fonts"
 import Button from '../components/Button'
-import { useState } from "react"
-import { useEffect } from "react"
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation, useRoute } from "@react-navigation/native"
+
+
+type Emojis = "😁" | "🤗"
+export interface PropParams {
+    title: string
+    subtitle: string
+    buttonTitle: string
+    icon: Emojis
+    nextScreen: string
+}
+
 
 export default function Confirmation() {
     const navigation = useNavigation()
+    const route = useRoute()
+    const props = route.params as PropParams
 
     const handleGoToPlantSelect = () => {
-        navigation.navigate("PlantSelect")
+        navigation.navigate(props.nextScreen)
     }
     return (
         <SafeAreaView style={styles.container} >
             <View style={styles.content}>
                 <Text style={styles.emoji}>
-                    😁
+                    {props.icon}
                 </Text>
                 <Text style={styles.title}>
-                    Prontinho
+                    {props.title}
                 </Text>
                 <Text style={styles.subTitle}>
-                    Agora vamos começar a cuidar das suas plantinhas com muito cuidado.
+                    {props.subtitle}
                 </Text>
                 <View style={styles.footer}>
-                    <Button text="Começar" onPress={handleGoToPlantSelect} />
+                    <Button text={props.buttonTitle} onPress={handleGoToPlantSelect} />
                 </View>
             </View>
         </SafeAreaView>

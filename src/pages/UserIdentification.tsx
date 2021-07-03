@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import colors from "../styles/colors"
 import fonts from "../styles/fonts"
 import Button from '../components/Button'
+import { PropParams } from "./Confirmation"
 
 export default function UserIdentification() {
     const [isFocused, setIsFocused] = useState(false)
@@ -46,7 +47,15 @@ export default function UserIdentification() {
         }
         await AsyncStorage.setItem("@plantmanager:user", name).then(() => {
 
-            navigation.navigate("Confirmation")
+            const params: PropParams = {
+                buttonTitle: "Começar",
+                icon: "😁",
+                nextScreen: "PlantSelect",
+                subtitle: "Agora vamos começar a cuidar das suas plantinhas com muito cuidado.",
+                title: "Prontinho"
+            }
+
+            navigation.navigate("Confirmation", params)
         })
     }
     return (
